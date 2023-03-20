@@ -5,24 +5,32 @@
 package ampcalculator;
 
 import java.util.Scanner;
+
 public class AmpCalculator {
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         
         System.out.println("-----Amp Calculator-----");
         System.out.println("This application helps you calculate the ammounts of amps used by the connected devices you have to an outlet.");
         System.out.println("You will be asked for the outlet's voltage and each device's wattage");
-        
+        System.out.println("------------------------------------");
+        //Setting the outlet parameters
         System.out.println("Input the outlet voltage: ");
-        double v = input.nextDouble();
+        while (!input.hasNextDouble()){
+            System.out.println("Please input a valid number. ");
+            input.nextLine();
+        }double v = input.nextDouble();
         System.out.println("Input the outlet's max amp draw: ");
-        double a = input.nextDouble();
+        while (!input.hasNextDouble()){
+            System.out.println("Please input a valid number. ");
+            input.nextLine();
+        }double a = input.nextDouble();
+        //Creating outlet object
         Outlet outlet = new Outlet(v, a);
         
+        //Console interface
         boolean menu = true;
         while (menu==true){
             System.out.println("------------------------------------");
@@ -31,6 +39,7 @@ public class AmpCalculator {
             System.out.println("2 - Remove device");
             System.out.println("3 - Calculate total amp draw");
             System.out.println("4 - List devices");
+            System.out.println("5 - Show outlet information");
             System.out.println("0 - Exit");
             String option = input.next();
             switch (option){
@@ -52,10 +61,17 @@ public class AmpCalculator {
                 case "3":
                     System.out.println("------------------------------------");
                     outlet.calculateDraw();
+                    pressContinue();
                     break;
                 case "4":
                     System.out.println("------------------------------------");
                     outlet.getDevices();
+                    pressContinue();
+                    break;
+                case "5":
+                    System.out.println("------------------------------------");
+                    System.out.println("Volts: "+outlet.getVolts()+" | Max Amps: "+outlet.getMaxamps());
+                    pressContinue();
                     break;
                 case "0": 
                     System.out.println("Closing...");
@@ -64,5 +80,10 @@ public class AmpCalculator {
             }
         }
     }
-    
+    //Function for requiring an input to proceed to the next operation
+    public static void pressContinue(){
+        System.out.println("Press ENTER to continue");
+        try{System.in.read();}
+        catch(Exception e){}
+    }
 }

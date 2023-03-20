@@ -10,14 +10,17 @@ import java.util.Scanner;
 public class Outlet {
     private double volts;
     private double maxAmps;
+    //Arraylist for storing devices
     ArrayList<Devices> devices = new ArrayList<Devices>();
     Scanner input = new Scanner(System.in);
     
+    //Constructor
     public Outlet(double volts, double amps) {
         this.volts = volts;
         this.maxAmps = amps;
     }
 
+    //Getters and setters
     public double getVolts(){
         return volts;
     }
@@ -34,15 +37,18 @@ public class Outlet {
         this.maxAmps = amps;
     }
     
+    //Function for adding a device to the arraylist
     public void addDevice(Devices object){
         devices.add(object);
     }
     
+    //Function for removing a device from the arraylist
     public void removeDevice(){
         System.out.println("Select device number to remove: ");
         devices.remove(input.nextInt()-1);
     }
     
+    //Function for listing the arraylist containing the devices
     public void getDevices(){
         if (devices.size()>0){
             System.out.println("List of connected devices: ");
@@ -54,6 +60,7 @@ public class Outlet {
         }
     }
     
+    //Function for calculating the total Amp and Wattage draw of the outlet
     public void calculateDraw(){
         double ampsDraw = 0;
         double wattsDraw = 0;
